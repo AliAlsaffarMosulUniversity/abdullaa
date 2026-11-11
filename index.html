@@ -73,6 +73,7 @@ p.sub{margin:0 0 18px;color:var(--mut);font-size:15px}
 .opt.dim{opacity:.55}
 .opt:disabled{cursor:default}
 .fb{margin-top:6px;padding:10px 14px;border-radius:12px;font-weight:600;font-size:14.5px}
+.fb .cr{margin-top:4px;font-weight:500;color:var(--ink)}
 .fb.ok{background:var(--okbg);color:var(--ok)}.fb.no{background:var(--badbg);color:var(--bad)}
 .nav{display:flex;gap:10px}
 .nav .btn{margin-top:16px}
@@ -179,7 +180,8 @@ function pick(j){
   if(S.mode==='learn'){
     btns.forEach((b,k)=>{b.disabled=true;if(it.opts[k].c)b.classList.add('ok');else if(k===j)b.classList.add('no');else b.classList.add('dim')});
     const ok=j>=0&&it.opts[j].c;
-    $('fb').innerHTML=`<div class="fb ${ok?'ok':'no'}">${j<0?'انتهى الوقت ⏱':ok?'إجابة صحيحة ✓':'إجابة خاطئة ✗'}</div>`;
+    const corr=it.opts.find(o=>o.c).t;
+    $('fb').innerHTML=ok?`<div class="fb ok">صح ✓</div>`:`<div class="fb no">${j<0?'انتهى الوقت ⏱ — ':''}الإجابة خاطئة ✗<div class="cr">الإجابة الصحيحة: ${corr}</div></div>`;
   }else{
     btns.forEach((b,k)=>{b.disabled=true;if(k===j)b.classList.add('ok');else b.classList.add('dim')});
   }
